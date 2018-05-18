@@ -1,0 +1,42 @@
+
+<% include ../partials/header %>
+
+  <div class="dark-overlay1">
+    <div class="container py-5 text-dark">
+        <h1>Welcome To Programerr!</h1>
+        <p>Create your own blogs and share your life's programming.</p>
+        <p>
+          <a class="btn btn-dark btn-lg" href="/blogs/new">Add New Blog</a>
+        </p>
+    </div>
+  </div>
+<div class="container pt-5">
+  <div class="row text-center" style="display:flex; flex-wrap: wrap;">
+      <% Blogs.forEach(function(blog){ %>
+      <div class="col-md-4 col-sm-6 float-left">
+        <div class="card ml-auto" style="width: 23rem;">
+          <img class="img-thumbnail" src="<%= blog.image %>" alt="card image cap">
+          <div class="card-body">
+            <h5 class="card-title"><%= blog.title %></h5>
+            <a href="/blogs/<%=blog._id%>" class="btn btn-sm btn-outline-dark">Read></a>
+          </div>
+        </div>
+      </div>
+      <% }); %>
+  </div>
+</div>
+<section class="pt-5">
+  <div class="row">
+    <div class="col">
+      <div class="dark-overlay2">
+        <div class="container text-center py-5">
+          <h4 class="display-4"> Share your idea, story or creativity.</h4>
+          <a class="btn btn-lg btn-dark" href="/blogs/new">Add a Blog</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<% include ../partials/footer %>

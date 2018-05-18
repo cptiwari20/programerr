@@ -1,0 +1,104 @@
+<% include ../partials/header %>
+<div class="blog-reading">
+  <div class="">
+    <div class="row">
+      <div class="col-md-8 col-lg-8 col-sm-12">
+        <section id="blog-img-show">
+          <div class="container">
+            <div class="card">
+              <img id="blog-img-head" class="image-fluid" src="<%= Blog.image %>" alt="<%= Blog.title%>">
+              <p class="p-2">
+                <em>Submitted By <%= Blog.author.username %></em>
+                <br>
+                <em>Submitted on <%=   Blog.date.getDate() + '-' + Blog.date.getMonth() + '-'+ Blog.date.getFullYear()
+                      + '. At about '+ Blog.date.getHours() +':' + Blog.date.getMinutes() %></em>
+              </p>
+              <div class="card align-center">
+                <div class="container text-center">
+                <h1 class="display-3"><%= Blog.title %></h1>
+                <p class="lead py-2"><%= Blog.body %></p>
+              </div>
+              <% if(currentUser && Blog.author.id.equals(currentUser._id)){ %>
+                <div class="container">
+                     <form style="display: inline"
+                         class="pull-right" action="/blogs/<%=Blog._id%>?_method=DELETE"
+                         method="POST">
+                         <button class="btn btn-sm btn-secondary">DELETE</button>
+                      </form>
+                    <a href="/blogs/<%=Blog._id%>/edit" class="btn btn-sm btn-dark">EDIT</a>
+                 </div>
+              <% } %>
+            </div>
+            </div>
+              <div class="card bg-dark text-white">
+                <div class="container pt-3">
+                  <form class="form-inline" action="/blogs/<%=Blog._id%>/comment" method="post">
+                      <div class="form-group mx-sm-3 mb-2">
+                        <textarea class="form-control" cols="90" type="text" name="commentText" placeholder="Make Sure that you are logged in, otherwise you will loose your comment."></textarea>
+                      </div>
+                      <div class="form-group">
+                          <button class="btn btn-lg btn-light display-inline">Comment</button>
+                      </div>
+                  </form>
+      
+                  <% Blog.comments.forEach(function(comment){ %>
+                    <div class="row bg-secondary mb-2">
+                      <div class="col-md-4 col-lg-4">
+                        <h3 class="dispalay-5"><%= comment.author.userName %></h3>  
+                      <span class="align-right" style="font-size:70%">
+                        <%=comment.date.getDate() + '-' + comment.date.getMonth() + '-'+ comment.date.getFullYear()
+                        + '. Time: '+ comment.date.getHours() +':' + comment.date.getMinutes()%>
+                      </span>
+                    </div>
+                      <div class="col-md-8 col-lg-8">
+                      <p class="lead">- <%= comment.commentText %> </p>
+                      </div>
+                    </div>
+                  <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
+                    <a class="btn btn-sm btn-secondary"
+                      href="/blogs/<%=Blog._id %>/comments/<%=comment._id %>/edit">Edit</a>
+                    <form style="display: inline"
+                          id="delete-form"
+                          action="/blogs/<%=Blog._id %>/comments/<%=comment._id %>?_method=DELETE"
+                          method="POST">
+                        <input type="submit" class="btn btn-sm btn-light display-inline" value="Delete">
+                    </form>
+                  <% } %>
+                  <%});%>
+           
+              </div>
+            </div>
+            </div>
+        </section>
+        </div>
+        <div class="col-md-4 col-lg-4 col-sm-12 py-2">
+          <h4 class="display 4"> Recent Blogs</h4>
+          <% Blogs.forEach(function(blog){ %>
+          <div class="card" style="width: 23rem;">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-5">
+                    <img class="img-thumbnail" style="height:100%; width:100%;" src="<%= blog.image %>" alt="card image cap">
+                </div>
+                <div class="col-md-7">
+                    <h5 class="card-title"><%= blog.title %></h5>
+                    <p class="card-text">
+                        <span class="claimedRight" 
+                            maxlength="10"
+                            style="display:block; text-overflow: ellipsis; width: 200px; overflow: hidden; white-space: nowrap;" >
+                            <%= blog.body %>
+                        </span></p>
+                    <a href="/blogs/<%=blog._id%>" class="btn btn-secondary btn-sm">Read</a>
+                </div>
+              </div>
+            </div>
+          </div>
+            <% }); %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<% include ../partials/footer %>
