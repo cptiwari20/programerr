@@ -30,17 +30,21 @@
               <% } %>
             </div>
             </div>
-              <div class="card bg-dark text-white">
+              <div class="card bg-dark text-white text-center">
                 <div class="container pt-3">
-                  <form class="form-inline" action="/blogs/<%=Blog._id%>/comment" method="post">
+                  <% if(!currentUser){ %>
+                    <a class="btn btn-lg btn-outline-light mb-3" href="/login">Login to add your Comment.</a>
+                  <% } else { %>
+                    <form class="form-inline" action="/blogs/<%=Blog._id%>/comment" method="post">
                       <div class="form-group mx-sm-3 mb-2">
-                        <textarea class="form-control" cols="90" type="text" name="commentText" placeholder="Make Sure that you are logged in, otherwise you will loose your comment."></textarea>
+                        <textarea class="form-control" cols="90" type="text" name="commentText" placeholder="Add Your Comment here..."></textarea>
                       </div>
                       <div class="form-group">
                           <button class="btn btn-lg btn-light display-inline">Comment</button>
                       </div>
                   </form>
-      
+                    
+                  <% } %>
                   <% Blog.comments.forEach(function(comment){ %>
                     <div class="row bg-secondary mb-2">
                       <div class="col-md-4 col-lg-4">

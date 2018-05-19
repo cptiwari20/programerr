@@ -5,12 +5,12 @@ const blogs = require('../models/blog');
 var middleware = require("../middleware");
 
 //get the comment page
-router.get("/blogs/:id/comment", middleware.isLoggedIn, (req, res, next)=> {
-  blogs.findById(req.params.id, function(err, blog) {
-    if(err) return err;
-      res.render('comments/new', {blog: blog, head: "Add a comment", subHead: "Share your opinions or thoughts."})
-  })
-});
+// router.get("/blogs/:id/comment", middleware.isLoggedIn, (req, res, next)=> {
+//   blogs.findById(req.params.id, function(err, blog) {
+//     if(err) return err;
+//       res.render('comments/new', {blog: blog, head: "Add a comment", subHead: "Share your opinions or thoughts."})
+//   })
+// });
 
 router.post("/blogs/:id/comment", middleware.isLoggedIn, (req, res, next)=> {
   blogs.findById(req.params.id, function(err, blog) {
@@ -53,7 +53,8 @@ router.get("/blogs/:id/comments/:comment_id/edit", middleware.checkCommentOwners
   });
 });
 router.put('/blogs/:id/comments/:comment_id/edit',  middleware.checkCommentOwnership, function(req, res){
-  Comment.findByIdAndUpdate(req.params.comment_id, req.body.commentText, function(err, updatedComment){
+  var comment = {commentText: req.body.commentText }
+  Comment.findByIdAndUpdate(req.params.comment_id, {$set: comment }, function(err, updatedComment){
      if(err){
           console.log(err);
          res.redirect("back");
