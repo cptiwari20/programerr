@@ -31,7 +31,7 @@ router.get('/blogs/:id', (req, res)=>{
         res.render('blogs/show', {Blog: foundBlog, head: "Reading a Blog", subHead: foundBlog.title, Blogs:allBlogs});
       }
     });
-    
+
   })
 });
 

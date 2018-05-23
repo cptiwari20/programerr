@@ -3,224 +3,71 @@
 <div class="container">
        <header id="main-header">
          <div class="row no-gutters">
-           <div class="col-md-5 col-lg-4 col-sm-12">
-             <img src="img/person1.jpg" alt="">
+           <div class="col-md-5 col-lg-4 col-sm-12 rounded-circle">
+             <img src="<%=user.image%>" alt="<%=user.username%>">
            </div>
            <div class="col-md-7 col-lg-8 col-sm-12">
              <div class="d-flex flex-column">
                <div class="p-5 bg-dark text-white">
                  <div class=" name d-flex flex-row justify-content-between align-items-center">
-                   <h1 class="display-4">John Doe</h1>
-                   <div><i class="fa fa-twitter"></i></div>
-                   <div><i class="fa fa-facebook"></i></div>
-                   <div><i class="fa fa-instagram"></i></div>
-                   <div><i class="fa fa-github"></i></div>
-                 </div>
-               </div>
-               <div class="p-4 display-6 bg-black">Here is your Bio</div>
-
-               <div class="d-flex flex-row text-white align-items-stretch text-center">
-                 <div class="port-item p-4 bg-primary" data-toggle="collapse" data-target="#home">
-                   <i class="fa fa-home d-block"></i>Home
-                 </div>
-                 <div class="port-item p-4 bg-success" data-toggle="collapse" data-target="#work">
-                   <i class="fa fa-folder-open d-block"></i>Work
-                 </div>
-                 <div class="port-item p-4 bg-warning" data-toggle="collapse" data-target="#resume">
-                   <i class="fa fa-graduation-cap d-block"></i>Resume
-                 </div>
-                 <div class="port-item p-4 bg-danger" data-toggle="collapse" data-target="#contact">
-                   <i class="fa fa-envelope d-block"></i>Contact
+                   <h1 class="display-4"><%=user.username%></h1>
+                   <div><i class="fab fa-twitter"><a href="https://twitter.com/<%=user.twitterId%>"></a></i></div>
+                   <div><i class="fab fa-facebook"><a href="https://facebook.com/<%=user.facebookId%>"></a></i></div>
+                   <div><i class="fab fa-instagram"><a href="https://googleId.com/<%=user.googleId%>"></a></i></div>
+                   <% if(currentUser){ %>
+                    <div class="text-white">
+                      <i class="fab fas fa-pencil-alt"></i>
+                        <a href="/user/<%=user._id%>/edit">
+                          Edit Your Profile
+                        </a>
+                    </div>
+                     <% } %>
                  </div>
                </div>
              </div>
            </div>
          </div>
        </header>
-       <!-- Home -->
-       <div id="home" class="collapse">
-         <div class="card card-block bg-primary text-white p-5">
-           <h2>Welcome to my page.</h2>
-             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis qui quos illo corporis aliquam nesciunt, facere distinctio dolore eaque mollitia!</p>
-         </div>
-         <div class="card card-block p-5">
-           <h2>My skills</h2>
-           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est nostrum repudiandae eos beatae laudantium tempora, debitis magnam deserunt, eum atque!</p>
-             <br>
-           <h1>HTML</h1>
-           <div class="progress mb-3">
-             <div class="progress-bar bg-success" role="progressbar" style="width:100%"></div>
-           </div>
-           <h1>CSS</h1>
-           <div class="progress mb-3">
-             <div class="progress-bar bg-success" role="progressbar" style="width:100%"></div>
-           </div>
-           <h1>JavaScript</h1>
-           <div class="progress mb-3">
-             <div class="progress-bar bg-success" role="progressbar" style="width:75%"></div>
-           </div>
-           <h1>Node</h1>
-           <div class="progress mb-3">
-             <div class="progress-bar bg-success" role="progressbar" style="width:80%"></div>
-           </div>
-         </div>
-       </div>
-       <!-- resume -->
-       <div id="resume" class="collapse">
-         <div class="card card-block bg-warning text-white p-5">
-           <h1>My resume</h1>
-           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed, totam?</p>
-         </div>
-         <div class="card card-block p-5">
-           <h2>Where I worked?</h2>
-           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, repellendus.</p>
+       <div class="row">
+         <div class="col-md-9 col-lg-9">
+           <div class="row mt-3" style="display:flex; flex-wrap: wrap;">
+           <% user.blog.forEach(function(blog){ %>
+             <div class="col-lg-8 col-md-10 mx-auto">
+               <div class="post-preview">
+                   <div class="row">
+                     <div class="com-lg-3 col-md-3">
+                       <img class="img-fluid rounded" src="<%= blog.image %>" alt="card image cap">
+                     </div>
+                     <div class="col-md-9 col-lg-9">
+                       <a class="text-dark" href="/blogs/<%=blog._id%>">
 
-         <div class="card-deck">
-           <div class="card text-center">
-             <div class="card-block">
-               <h4 class="card-title">
-                 Devmasters
-               </h4>
-               <p class="card-text">
-                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam, veritatis?
-               </p>
-               <p class="p-2 mb-3 bg-dark text-white">Full stack Developer</p>
-               <p class="p-2 mb-3 bg-dark text-white">phone: (+91) 7899 789456</p>
-               <div class="card-footer">
-                 <h6 class="text-muted">Dates: 2015 - 2018</h6>
-               </div>
-             </div>
+                         <h2 class="post-title">
+                           <%= blog.title %>
+                         </h2>
+                         <h3 class="post-subtitle">
+                          Lorem ipsum dolor sit amet
+                         </h3>
+                       </a>
+                       <p class="post-meta">Posted by
+                         <a href="/user/<%=blog.author.id%>/account"><%=blog.author.username%></a>
+                         on September 24, 2018</p>
+                     </div>
+                   </div>
+                 </div>
+
+
+                 <hr>
+                   </div>
+           <% }); %>
            </div>
-           <div class="card text-center">
-             <div class="card-block">
-               <h4 class="card-title ">
-                 Web Developer pro
-               </h4>
-               <p class="card-text">
-                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam, veritatis?
-               </p>
-               <p class="p-2 mb-3 bg-dark text-white">Full stack Developer</p>
-               <p class="p-2 mb-3 bg-dark text-white">phone: (+91) 7899 789456</p>
-               <div class="card-footer">
-                 <h6 class="text-muted">Dates: 2015 - 2018</h6>
-               </div>
-             </div>
-           </div>
-           <div class="card text-center">
-             <div class="card-block">
-               <h4 class="card-title">
-                 Devmasters
-               </h4>
-               <p class="card-text">
-                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam, veritatis?
-               </p>
-               <p class="p-2 mb-3 bg-dark text-white">Full stack Developer</p>
-               <p class="p-2 mb-3 bg-dark text-white">phone: (+91) 7899 789456</p>
-               <div class="card-footer">
-                 <h6 class="text-muted">Dates: 2015 - 2018</h6>
-               </div>
-               </div>
-             </div>
+           <div class="clearfix">
+               <a class="btn btn-secondary float-right" href="#">Older Posts &rarr;</a>
            </div>
          </div>
        </div>
-       <!-- work -->
-       <div id="work" class="collapse">
-         <div class="card card-block bg-success text-white p-5">
-           <h1>My Work</h1>
-           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed, totam?</p>
-         </div>
-         <div class="card card-block p-5">
-           <h2>What had I built?</h2>
-           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, repellendus.</p>
-         <div class="row no-gutters">
-           <div class="col-md-3">
-             <a href="https://unsplash.it/1200/768.jpg?image=251" data-toggle="lightbox">
-                 <img src="https://unsplash.it/600.jpg?image=251" class="img-fluid">
-             </a>
-           </div>
-           <div class="col-md-3">
-             <a href="https://unsplash.it/1200/768.jpg?image=252" data-toggle="lightbox">
-                 <img src="https://unsplash.it/600.jpg?image=252" class="img-fluid">
-             </a>
-           </div>
-           <div class="col-md-3">
-             <a href="https://unsplash.it/1200/768.jpg?image=253" data-toggle="lightbox">
-                 <img src="https://unsplash.it/600.jpg?image=253" class="img-fluid">
-             </a>
-           </div>
-           <div class="col-md-3">
-             <a href="https://unsplash.it/1200/768.jpg?image=254" data-toggle="lightbox">
-                 <img src="https://unsplash.it/600.jpg?image=254" class="img-fluid">
-             </a>
-           </div>
-         </div>
-         <div class="row no-gutters">
-           <div class="col-md-3">
-             <a href="https://unsplash.it/1200/768.jpg?image=255" data-toggle="lightbox">
-                 <img src="https://unsplash.it/600.jpg?image=255" class="img-fluid">
-             </a>
-           </div>
-           <div class="col-md-3">
-             <a href="https://unsplash.it/1200/768.jpg?image=257" data-toggle="lightbox">
-                 <img src="https://unsplash.it/600.jpg?image=257" class="img-fluid">
-             </a>
-           </div>
-           <div class="col-md-3">
-             <a href="https://unsplash.it/1200/768.jpg?image=259" data-toggle="lightbox">
-                 <img src="https://unsplash.it/600.jpg?image=259" class="img-fluid">
-             </a>
-           </div>
-           <div class="col-md-3">
-             <a href="https://unsplash.it/1200/768.jpg?image=260" data-toggle="lightbox">
-                 <img src="https://unsplash.it/600.jpg?image=260" class="img-fluid">
-             </a>
-           </div>
-         </div>
-         </div>
-       </div>
-       <!-- contact -->
-       <div id="contact" class="collapse">
-         <div class="card card-block bg-danger text-white p-5">
-           <h1>Contact Us</h1>
-           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed, totam?</p>
-         </div>
-         <div class="card card-block p-5">
-           <h2>Keep in touch</h2>
-           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, repellendus.</p>
-         <form action="">
-           <div class="form-group">
-             <div class="input-group input-group-lg">
-               <span class="input-group-addon bg-danger text-white">
-                 <i class="fa fa-user"></i>
-             </span>
-             <input type="text" class="form-control bg-dark text-white" placeholder="name">
-             </div>
-           </div>
-           <div class="form-group">
-             <div class="input-group input-group-lg">
-               <span class="input-group-addon bg-danger text-white">
-                 <i class="fa fa-mail"></i>
-             </span>
-             <input type="email" class="form-control bg-dark text-white" placeholder="email">
-             </div>
-           </div>
-           <div class="form-group">
-             <div class="input-group input-group-lg">
-               <span class="input-group-addon bg-danger text-white">
-                 <i class="fa fa-pencil"></i>
-             </span>
-             <textarea rows="5" class="form-control bg-dark text-white" placeholder="Message">
-             </textarea>
-             </div>
-           </div>
-           <input type="submit" value="submit" class="btn btn-danger btn-block text-white">
-         </form>
-         </div>
-       </div>
-       <!-- footer -->
+     </div>
        <section id="footer" class="p-5 text-white bg-dark">
-         <div class="btn btn-outline-secondary"><i class="fa fa-cloud"></i>Download my Resume</div>
+          <a class="btn btn-outline-light" href="/"><i class="fa fa-home"></i>Home</a>
        </section>
      </div>
 

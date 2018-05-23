@@ -8,6 +8,10 @@
   <link href="https://fonts.googleapis.com/css?family=Dosis:400,500,600" rel="stylesheet">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   <link rel="stylesheet" href="/css/main.css">
+  <script src="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
+
+
   <title>Programerr</title>
 </head>
 <body>
@@ -42,12 +46,26 @@
                   <a href="/register" class="nav-link">Sign Up</a>
                 </li>
             <% } else { %>
-                <li class="nav-item">
-                  <a href="/account" class="nav-link">Account:<%= currentUser.username %></a>
-                </li>
-                <li class="nav-item">
-                  <a href="/logout" class="nav-link">Logout</a>
-                </li>
+              <li class="nav-item">
+              <div class="dropdown">
+                    <a href="#"
+                      class="nav-link dropdown-toggle"
+                      id="dropdownMenuButton"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false">
+                      <img class="img-fluid rounded-circle" src="<%=currentUser.image%>"
+                        width="50"
+                        height="50"
+                        alt="<%=currentUser.username%>"
+                        style="border-radius: 50%">
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="/user/<%=currentUser._id%>/account"><i class="fa fa-account fa-fw"></i>Account</a>
+                      <a class="dropdown-item" href="/logout"><i class="fa fa-sign-out fa-fw"></i>Logout</a>
+                    </div>
+                </div>
+              </li>
             <% } %>
              </li>
             </ul>
@@ -59,25 +77,27 @@
       <div class="">
         <div class="container">
           <div class="row">
-            <div class="col-lg-6 col-sm-12 text-center">
+            <div class="col-lg-9 col-sm-9 text-center">
               <h1 class="display-6">
                 <%=head%>
               </h1>
               <p class="lead"><%= subHead %>.</p>
               </div>
-              <div class="col-lg-6 col-sm-12 text-center">
+              <div class="col-lg-3 col-sm-12 text-center">
                 <div class="form-group">
                   <div class="input-group">
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">
-                      <i class="fa fa-search"></i>
+                      <i class="fa fa-share"></i>
+                      <div class="a2a_kit a2a_kit_size_32 a2a_default_style" style="right: 0px; top:100px; background-color:transparent; line-height:32px;">
+                        <a class="a2a_button_facebook"></a>
+                        <a class="a2a_button_twitter"></a>
+                        <a class="a2a_button_google_plus"></a>
+                        <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+                      </div>
+                      <script async src="https://static.addtoany.com/menu/page.js"></script>
                     </span>
                   </div>
-                    <input type="text"
-                            class="form-control"
-                            placeholder="Search"
-                            aria-label="search"
-                            aria-describedby="basic-addon1">
                   </div>
             </div>
           </div>
@@ -85,6 +105,7 @@
       </div>
 </section>
 <div class="display-block text-center">
+
    <% if(error && error.length > 0) { %>
      <div class="alert alert-danger"><p><%= error %></p></div>
    <% } %>
@@ -93,3 +114,6 @@
      <div class="alert alert-success"><p><%= success %></p></div>
    <% } %>
 </div>
+<!-- AddToAny BEGIN -->
+
+<!-- AddToAny END -->

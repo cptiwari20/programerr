@@ -8,15 +8,16 @@ router.get('/register', (req, res)=>{
   res.render('user/register', {head:"Sign Up", subHead:"Register yourself as a new user. "});
 });
 router.post("/register", function(req, res){
-    // var firstName = req.body.firstName;
-    // var lastName  = req.body.lastName;
-    // var email     = req.body.email;
+    var firstName = req.body.firstName;
+    var lastName  = req.body.lastName;
+    var email     = req.body.email;
     var username  = req.body.username;
-    // var newUser = new User({username: username, email: email, firstName: firstName, lastName: lastName});
-    // newUser.save(function(err, user){
-    //   if(err) console.log(err);
-    //   console.log("user Saved!",user);
-    // });
+    var image  = req.body.image;
+    var newUser = new User({email: email, firstName: firstName, lastName: lastName, image:image});
+    newUser.save(function(err, user){
+      if(err) console.log(err);
+      console.log("user Saved!",user);
+    });
     var usern = new User({username});
     User.register(usern, req.body.password, function(err, user){
         if(err){
@@ -44,9 +45,48 @@ router.post("/login", passport.authenticate("local",
     {
         successRedirect: "/blogs",
         failureRedirect: "/login",
-        failureFlash: true
+        failureFlash: true,
+        successFlash: true
     }), function(req, res){
 });
+//facebok auth
+router.get('/auth/facebook', passport.authenticate('facebook', { scope: 'email' }));
+
+router.get('/auth/facebook/callback', passport.authenticate('facebook', {
+  successRedirect: '/',
+  failureRedirect: '/login',
+  failureFlash: true
+ }));
+ //google-passport
+
+ router.get('/auth/google', passport.authenticate('google', { scope: 'email',  }));
+
+ router.get('/auth/google/callback', passport.authenticate('google', {
+   successRedirect: '/',
+   failureRedirect: '/login',
+   failureFlash: true
+  }));
+
+router.get('/user/:userId/account', (req, res)=>{
+  User.findById(req.params.userId, (err, foundUser)=>{
+    if(err){
+      console.log(err);
+    }else {
+
+      res.render('user/account', {head:"Profile", subHead:"", user: foundUser})
+    }
+  })
+})
+router.get('/user/:id/edit', (req, res)=>{
+  User.findById(req.params.id, (err, foundUser)=>{
+    if(err){
+      console.log(err);
+    }else{
+      console.log(foundUser);
+      res.render('user/edit', {head: "Edit Your Profile", subHead:"Update Your info", user: foundUser})
+    }
+  })
+})
 //logout
 router.get("/logout", function(req, res){
    req.logout();

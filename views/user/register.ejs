@@ -2,15 +2,27 @@
 
 <div class="container">
     <div class="row">
-        <h1 class="align-center">Sign Up</h1>
-        <div style="width: 30%; margin: 25px auto;">
+        <h1 class="align-center"></h1>
+        <div style="width: 50%; margin: 25px auto;">
             <form action="/register" method="post">
+              <div class="form-group">
+                  <input class="form-control" type="text" name="firstName" placeholder="First Name" required>
+              </div>
+              <div class="form-group">
+                  <input class="form-control" type="text" name="lastName" placeholder="Last name" required>
+              </div>
+              <div class="form-group">
+                  <input class="form-control" type="email" name="email" placeholder="username" required>
+              </div>
+              <div class="form-group">
+                  <input class="form-control" type="text" name="username" placeholder="@username (unique)" required>
+              </div>
                 <div class="form-group">
-                    <input class="form-control" type="text" name="username" placeholder="username">
+                    <input class="form-control" type="text" name="image" placeholder="Image Url">
                 </div>
 
                 <div class="form-group">
-                    <input class="form-control" type="password" name="password" placeholder="password">
+                    <input class="form-control" type="password" name="password" placeholder="password" required>
                 </div>
                 <div class="form-group">
                     <button class="btn btn-lg btn-light btn-block">Sign Up</button>

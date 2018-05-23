@@ -7,10 +7,8 @@ router.get("/", (req, res, next)=> {
 router.get("/index", (req, res, next)=> {
   res.render('index')
 });
-router.get('/account', (req, res)=>{
-  res.render('user/account', {head:"My Portfolio", subHead:"coming soon!"})
+router.get('/error', (req,res)=>{
+  res.render('error', {head:"Page Not Found", subHead: "Go to Home Page"});
 })
-
-
 
 module.exports = router;

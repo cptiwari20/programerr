@@ -3,7 +3,15 @@
 <div class="container">
     <div class="row">
         <h1 class="align-center">Login</h1>
-        <div style="width: 30%; margin: 25px auto;">
+        <div style="width: 50%; margin: 25px auto;">
+          <div class="form-group">
+          <a class="btn btn-block btn-primary btn-lg" href="/auth/facebook">
+              <i class="fab fa-facebook"></i> Sign in with Facebook
+          </a>
+          <a class="btn btn-block btn-social btn-secondary btn-lg" href="/auth/google">
+            <i class="fab fa-google"></i> Sign in with Google
+          </a>
+        </div>
             <form action="/login" method="post">
                 <div class="form-group">
                     <input class="form-control" type="text" name="username" placeholder="email/username">
@@ -15,6 +23,7 @@
                     <button class="btn btn-lg btn-light btn-block">Login</button>
                 </div>
             </form>
+
               <a class="btn btn-lg btn-light btn-block"  href="/register">Sign Up!</a>
               <a class="auto-align-right" href="#">forget password?</a>
             <p><a href="/">Home</a></p>
